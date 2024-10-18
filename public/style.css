@@ -1,34 +1,210 @@
-.border {
-  border-style: solid;
-  border-width: 1px;
-  margin: 10px;
+/* Importando fonte personalizada */
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
 }
 
-#sampleui {
-  max-width: 450px;
-  margin-left: 5%;
-  height: 100%;
+html {
+    height: 100%;
+    background: #f8f6f6f3;
 }
 
-#sampleposting {
-  max-width: 450px;
-  text-align: center;
-  margin-left: 5%;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
 }
 
-#userstories {
-  margin-left: 5%;
+/* Estrutura principal do formulário */
+#msform {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    position: relative;
+    margin: 30px;
 }
 
-form {
-  padding: 5px;
+/* Estilo dos fieldsets */
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 6px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    margin-top: 35px;
 }
 
-label {
-  display: block;
-  font-weight: bold;
+/* Inputs do formulário */
+#msform input, #msform select {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 90%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-input {
-  margin-bottom: 5px;
+#msform input:focus, #msform select:focus {
+    border: 1px solid #ee0979;
+    outline-width: 0;
+    transition: all 0.5s ease-in;
+}
+
+/* Estilo para botões padrão (Limpar e Voltar) */
+.button-default {
+    width: 155px;
+    background: #bfbfbf;
+    font-weight: normal;
+    font-size: 14px;
+    color: #fff;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+/* Estilo para botões de ação (Salvar, Cadastrar, Comentar) */
+.button-action {
+    width: 155px;
+    background: #ee0979;
+    font-weight: normal;
+    font-size: 14px;
+    color: #fff;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+/* Estilo para botões de deletar */
+.button-delete {
+    width: 155px;
+    background: #ee0909; 
+    font-weight: normal;
+    font-size: 14px;
+    color: #fff;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+/* Títulos */
+h2.fs-title {
+    font-size: 24px;
+    color: #2C3E50;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+h3.fs-subtitle {
+    font-size: 18px;
+    font-weight: normal;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaços entre células */
+    margin-top: 20px; /* Espaço acima da tabela */
+}
+
+th, td {
+    padding: 15px; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    border-bottom: 1px solid #eee; /* Linha de separação entre as linhas */
+}
+
+/* Estilo para os cabeçalhos da tabela */
+th {
+    background-color: #ee0979; /* Cor de fundo dos cabeçalhos */
+    color: white; /* Cor do texto dos cabeçalhos */
+    text-transform: uppercase; /* Transforma texto em maiúsculas */
+}
+
+/* Estilo para as linhas da tabela ao passar o mouse */
+tr:hover {
+    background-color: #f2f2f2; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para os comentários */
+.collapse {
+    padding: 10px; /* Espaçamento interno da seção colapsada */
+    background-color: #f9f9f9; /* Cor de fundo da seção colapsada */
+    border: 1px solid #ddd; /* Borda da seção colapsada */
+    border-radius: 4px; /* Borda arredondada */
+    margin-top: 10px; /* Espaço acima da seção colapsada */
+}
+
+/* Estilo para o modal */
+.modal-content {
+    padding: 20px; /* Padding para o conteúdo do modal */
+    border-radius: 6px; /* Bordas arredondadas */
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Remove a borda do cabeçalho do modal */
+.modal-header {
+    border-bottom: none;
+}
+
+/* Footer */
+footer {
+    font-family: montserrat, arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    border-top: 2px solid #d90f6a;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); 
+    font-weight: normal;
+    position: fixed;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    z-index: 10;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    z-index: 100; 
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.cute-footer p {
+    margin: 5px 0;
+}
+
+.cute-footer a {
+    color: #d90f6a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cute-footer .heart-link {
+    color: #d90f6a; 
+    font-size: 18px;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.cute-footer .heart-link:hover {
+    transform: scale(1.2); 
 }

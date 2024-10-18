@@ -1,68 +1,226 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <title>Personal Library</title>
-  <link rel="icon" type="image/png" href="https://cdn.freecodecamp.org/universal/favicons/favicon-16x16.png" />
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/public/style.css">
-  <style>
-    code {
-      background-color: whitesmoke;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Livros</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header>
-  <h1>Personal Library</h1>
-</header>
-<br>
-<div id ='sampleposting'>
-  <h2 style="text-align: left">Test API responses</h2>
-  <form action="/api/books" method="post" class="border">
-    <h4>Test post to /api/books</h4>
-    <label for="title" >Book Title</label>
-    <input type="text" id="title" name="title" value=""><br>
-    <input type="submit" value="Submit">
-  </form>
-  <form action="" method="post" id="commentTest" class="border">
-    <h4>Test post to /api/books/{bookid}</h4>
-    <label for="idinputtest">BookId to comment on</label>
-    <input type="text" name="id" value="" id="idinputtest"><br>
-    <label for="comment">Comment</label>
-    <input type="text" id="comment" name="comment" value=""><br>
-    <input type="submit" value="Submit">
-  </form>
-</div>
-<hr style='margin: 50px'>
-<div id='sampleui'>
-  <h2 style="text-align: left">Sample Front-End</h2>
-  <form id="newBookForm" class="border">
-    <label for="bookTitleToAdd">New Book Title</label>
-    <input type="text" id="bookTitleToAdd" name="title" placeholder="Moby Dick" style="width: 295px">
-    <button type="submit" value="Submit" id="newBook">Submit New Book!</button>
-  </form>
-  <div id='display'></div>
-  <div id='bookDetail' class='border'>
-    <p id='detailTitle'>Select a book to see it's details and comments</p>
-    <ol id='detailComments'></ol>
-  </div>
-  <button id='deleteAllBooks'>Delete all books...</button>
-</div>
-<hr style='margin: 50px'>
 
-<script src="https://code.jquery.com/jquery-2.2.1.min.js"</script>
-<script src="/public/client.js"></script>
+<div id="msform">
+    <h2 class="fs-title">Biblioteca Pessoal</h2>
+
+    <!-- Filtro de Livros -->
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <input type="text" id="bookFilter" placeholder="Filtrar pelo nome do livro" class="form-control" style="width: 300px; display: inline-block;">
+            <button id="clearFilter" class="button-default">Limpar Pesquisa</button>
+        </div>
+        <div>
+            <button id="addBookBtn" class="button-action" data-toggle="modal" data-target="#addBookModal">Adicionar Livro</button>
+            <button id="deleteSelectedBooks" class="button-delete">Remover Livros</button>
+        </div>
+    </div>
+
+    <!-- Tabela de Livros -->
+    <table id="booksTable">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Ações</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody id="bookList">
+            <!-- Aqui os livros cadastrados serão exibidos -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal para adicionar livro -->
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBookModalLabel">Adicionar Novo Livro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addBookForm">
+                    <input type="text" id="bookTitle" placeholder="Título do livro" class="form-control mb-3" required>
+                    <button type="submit" class="button-action">Salvar</button>
+                    <button type="button" class="button-default" data-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para comentar sobre o livro -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Comentar sobre o Livro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="commentForm">
+                    <input type="hidden" id="commentBookId">
+                    <input type="text" id="comment" placeholder="Comentário" class="form-control mb-3" required>
+                    <button type="submit" class="button-action">Comentar</button>
+                    <button type="button" class="button-default" data-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="cute-footer">
+    <p>
+        Desenvolvido 
+        <a href="https://github.com/samanthasilva/FCC-Exercise-tracker" target="_blank" class="heart-link">❤</a>
+        por Samantha Silva
+    </p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
-  /*
-  *  For #sampleposting to update form action url to test inputs book id
-  */
-  $(function() {
-    $('#commentTest').submit(function(){
-      let  id = $('#idinputtest').val();
-      $(this).attr('action', "/api/books/" + id);
+    $(document).ready(function () {
+        // Carregar livros cadastrados
+        function loadBooks(filter = "") {
+            $.get("/api/books", function (data) {
+                let bookList = $("#bookList");
+                bookList.empty();
+                data.forEach(function (book) {
+                    if (book.title.toLowerCase().includes(filter.toLowerCase())) {
+                        let row = `
+                            <tr>
+                                <td>${book.title}</td>
+                                <td>
+                                    <button class="btn btn-link" data-toggle="modal" data-target="#commentModal" data-id="${book._id}">Comentar</button>
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#comments-${book._id}">Ver Comentários</button>
+                                </td>
+                                <td><input type="checkbox" class="delete-checkbox" data-id="${book._id}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div id="comments-${book._id}" class="collapse">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                ${book.comments.map((comment, index) => `
+                                                    <tr style="background-color: ${index % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
+                                                        <td>${comment}</td>
+                                                        <td style="text-align: right;">
+                                                            <a href="#" class="delete-comment" data-bookid="${book._id}" data-commentindex="${index}">Excluir</a>
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                        bookList.append(row);
+                    }
+                });
+            });
+        }
+
+        // Inicializar tabela com os livros
+        loadBooks();
+
+        // Adicionar livro
+        $("#addBookForm").on("submit", function (e) {
+            e.preventDefault();
+            const title = $("#bookTitle").val();
+            $.post("/api/books", { title }, function () {
+                $("#addBookModal").modal("hide");
+                loadBooks(); // Recarregar a tabela
+            });
+        });
+
+        // Limpar filtro
+        $("#clearFilter").click(function () {
+            $("#bookFilter").val("");
+            loadBooks(); // Recarregar a tabela
+        });
+
+        // Pesquisar livros
+        $("#bookFilter").on("input", function() {
+            const filterValue = $(this).val();
+            loadBooks(filterValue);
+        });
+
+        // Deletar livros selecionados
+        $("#deleteSelectedBooks").click(function () {
+            const selectedBooks = [];
+            $(".delete-checkbox:checked").each(function () {
+                selectedBooks.push($(this).data("id"));
+            });
+            if (selectedBooks.length > 0) {
+                if (confirm("Tem certeza que deseja remover os livros selecionados?")) {
+                    selectedBooks.forEach(function (bookId) {
+                        $.ajax({
+                            url: `/api/books/${bookId}`,
+                            type: "DELETE",
+                            success: function () {
+                                loadBooks(); // Recarregar a tabela
+                            }
+                        });
+                    });
+                }
+            } else {
+                alert("Nenhum livro selecionado.");
+            }
+        });
+
+        // Comentar livro
+        $("#commentModal").on("show.bs.modal", function (event) {
+            const button = $(event.relatedTarget);
+            const bookId = button.data('id');
+            $("#commentBookId").val(bookId); // Armazenar o ID do livro no campo oculto
+        });
+
+        $("#commentForm").on("submit", function (e) {
+            e.preventDefault();
+            const bookId = $("#commentBookId").val();
+            const comment = $("#comment").val();
+            $.post(`/api/books/${bookId}`, { comment }, function (data) {
+                alert("Comentário adicionado ao livro: " + data.title);
+                $("#commentModal").modal("hide"); // Fechar o modal
+                loadBooks(); // Recarregar a tabela
+            });
+        });
+
+        // Excluir comentários
+        $(document).on("click", ".delete-comment", function() {
+            const bookId = $(this).data("bookid");
+            const commentIndex = $(this).data("commentindex");
+
+            // Enviar requisição para excluir o comentário (precisará implementar no backend)
+            $.ajax({
+                url: `/api/books/${bookId}/comments/${commentIndex}`,
+                type: "DELETE",
+                success: function() {
+                    alert("Comentário excluído com sucesso!");
+                    loadBooks(); // Recarregar a tabela
+                },
+                error: function() {
+                    alert("Erro ao excluir comentário.");
+                }
+            });
+        });
     });
-  });
 </script>
+
 </body>
 </html>
